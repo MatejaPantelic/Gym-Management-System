@@ -1,0 +1,83 @@
+Sintaksa za kreiranje tabela
+
+CREATE TABLE [dbo].[Treneri] (
+    [id_trenera]     INT           IDENTITY (1, 1) NOT NULL,
+    [ime]            NVARCHAR (50) NOT NULL,
+    [prezime]        NVARCHAR (50) NOT NULL,
+    [datum_rodjenja] DATE          NOT NULL,
+    [strucna_oblast] NVARCHAR (50) NOT NULL,
+    [br_telefona]    NVARCHAR (50) NOT NULL,
+    [opis]           NVARCHAR (50) NULL,
+    [korisnicko_ime] NVARCHAR (50) NOT NULL,
+    [sifra]          NVARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_trenera] ASC)
+);
+
+
+
+CREATE TABLE [dbo].[Korisnici] (
+    [id_korisnika]   INT           IDENTITY (1, 1) NOT NULL,
+    [ime]            NVARCHAR (50) NOT NULL,
+    [prezime]        NVARCHAR (50) NOT NULL,
+    [datum_rodjenja] DATE          NOT NULL,
+    [tezina]         DECIMAL (18)  NOT NULL,
+    [visina]         DECIMAL (18)  NOT NULL,
+    [pol]            NVARCHAR (50) NOT NULL,
+    [email]          NVARCHAR (50) NULL,
+    [id_trenera]     INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_korisnika] ASC),
+    FOREIGN KEY ([id_trenera]) REFERENCES [dbo].[Treneri] ([id_trenera])
+);
+
+
+
+
+CREATE TABLE [dbo].[Vezbe] (
+    [id_vezbe]         INT           IDENTITY (1, 1) NOT NULL,
+    [naziv]            NVARCHAR (50) NOT NULL,
+    [regija_tela]      NVARCHAR (50) NOT NULL,
+    [broj_serija]      INT           NOT NULL,
+    [broj_ponavljanja] INT           NOT NULL,
+    [id_trenera]       INT           NULL,
+    PRIMARY KEY CLUSTERED ([id_vezbe] ASC),
+    FOREIGN KEY ([id_trenera]) REFERENCES [dbo].[Treneri] ([id_trenera])
+);
+
+
+
+Podaci za unos vežbi:
+SET IDENTITY_INSERT [dbo].[Vezbe] ON
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1, N'Sklekovi', N'grudi', 4, 12, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (2, N'Čučnjevi', N'regija nogu', 5, 20, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1002, N'Zgibovi', N'rameni pojas', 3, 15, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1003, N'Mrtvo dizanje', N'ledjni pojas', 3, 10, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1004, N'Pregib bučicama', N'biceps', 4, 12, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1005, N'Benč presa', N'grudi', 4, 10, NULL)
+INSERT INTO [dbo].[Vezbe] ([id_vezbe], [naziv], [regija_tela], [broj_serija], [broj_ponavljanja], [id_trenera]) VALUES (1006, N'Podizanje bučica u stranu', N'rameni pojas', 4, 15, NULL)
+SET IDENTITY_INSERT [dbo].[Vezbe] OFF
+
+
+Podaci za unos trenera:
+SET IDENTITY_INSERT [dbo].[Treneri] ON
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (1, N'Darko', N'Rakic', N'1989-02-11', N'kardio', N'035/584-712', N'Per aspera ad astra', N'darko123', N'112233')
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (2, N'Milos', N'Jevtovic', N'2001-05-06', N'rameni pojas', N'069/585-7124', NULL, N'm', N'1')
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (1002, N'Dejan', N'Petrovic', N'1994-09-11', N'biceps', N'066/818-2465', NULL, N'dejo', N'dejo123')
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (1003, N'Nevena', N'Djokovic', N'2000-07-28', N'regija nogu', N'063/558-6941', N'"Red rad i disciplina"', N'nevena', N'nev123')
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (1005, N'Milica', N'Karic', N'2000-06-21', N'biceps', N'064/570-2005', N'', N'milica', N'mil123')
+INSERT INTO [dbo].[Treneri] ([id_trenera], [ime], [prezime], [datum_rodjenja], [strucna_oblast], [br_telefona], [opis], [korisnicko_ime], [sifra]) VALUES (6002, N'Ivana', N'Petrovic', N'2002-03-24', N'kardio', N'069/458-6712', N'', N'ivana123', N'12345')
+SET IDENTITY_INSERT [dbo].[Treneri] OFF
+
+
+Podaci za unos korisnika:
+SET IDENTITY_INSERT [dbo].[Korisnici] ON
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (1002, N'Jovana', N'Predic', N'1995-01-14', CAST(99 AS Decimal(18, 0)), CAST(183 AS Decimal(18, 0)), N'ženski', N'jovana@gmail.com', 1005)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (1014, N'Vuk', N'Hadziprodanovic', N'1994-01-12', CAST(101 AS Decimal(18, 0)), CAST(187 AS Decimal(18, 0)), N'muški', N'vuk@yahoo.com', 1002)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (4002, N'Filip', N'Milovic', N'2001-11-03', CAST(68 AS Decimal(18, 0)), CAST(171 AS Decimal(18, 0)), N'muški', N'ficko@gmail.com', 1)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (7002, N'Milan', N'Savic', N'2022-05-24', CAST(99 AS Decimal(18, 0)), CAST(190 AS Decimal(18, 0)), N'muški', N'milan@gmail.com', 1005)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8004, N'Petar', N'Pavlovic', N'1992-09-28', CAST(100 AS Decimal(18, 0)), CAST(192 AS Decimal(18, 0)), N'muški', N'pavl@gmail.com', 6002)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8005, N'Tamara', N'Ivanovic', N'1997-07-11', CAST(67 AS Decimal(18, 0)), CAST(170 AS Decimal(18, 0)), N'ženski', N'tasa@yahoo.com', 1003)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8006, N'Katarina', N'Lukovic', N'2002-02-26', CAST(71 AS Decimal(18, 0)), CAST(174 AS Decimal(18, 0)), N'ženski', N'kaca@gmail.com', 1003)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8007, N'Veljko', N'Petrovic', N'1998-07-17', CAST(97 AS Decimal(18, 0)), CAST(196 AS Decimal(18, 0)), N'muški', N'veljas@yahoo.com', 1)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8008, N'Jovanka', N'Panovic', N'2003-08-25', CAST(55 AS Decimal(18, 0)), CAST(165 AS Decimal(18, 0)), N'ženski', N'pig@yahoo.com', 1005)
+INSERT INTO [dbo].[Korisnici] ([id_korisnika], [ime], [prezime], [datum_rodjenja], [tezina], [visina], [pol], [email], [id_trenera]) VALUES (8009, N'Kosta', N'Vujic', N'1991-10-14', CAST(107 AS Decimal(18, 0)), CAST(203 AS Decimal(18, 0)), N'muški', N'kosta@gmail.com', 1002)
+SET IDENTITY_INSERT [dbo].[Korisnici] OFF
